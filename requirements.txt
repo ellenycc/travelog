@@ -10,5 +10,4 @@ python-dotenv==1.0.1
 sqlparse==0.5.3
 typing_extensions==4.12.2
 psycopg2-binary==2.9.9
-dotenv==0.0.5
 gunicorn==21.2.0
