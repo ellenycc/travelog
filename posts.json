@@ -1,0 +1,102 @@
+[
+  {
+    "title": "Exploring the Alps",
+    "content": "The Alps offer breathtaking views and serene landscapes. A must-visit for any mountain lover!",
+    "user_id": 1
+  },
+  {
+    "title": "A Weekend in Paris",
+    "content": "Paris is a city of love and lights. From the Eiffel Tower to the Louvre, every corner is magical.",
+    "user_id": 2
+  },
+  {
+    "title": "Safari Adventures in Kenya",
+    "content": "Witnessing the Great Migration in the Masai Mara was a once-in-a-lifetime experience.",
+    "user_id": 2
+  },
+  {
+    "title": "Island Hopping in Greece",
+    "content": "The Greek islands are stunning, with their crystal-clear waters and charming white-washed houses.",
+    "user_id": 3
+  },
+  {
+    "title": "Backpacking Through South America",
+    "content": "From Machu Picchu to the Amazon rainforest, South America is full of wonders.",
+    "user_id": 3
+  },
+  {
+    "title": "Discovering Tokyo",
+    "content": "Tokyo is a blend of the ultramodern and the traditional, from skyscrapers to historic temples.",
+    "user_id": 3
+  },
+  {
+    "title": "Road Trip Across the USA",
+    "content": "Driving along Route 66 was an adventure filled with diverse landscapes and cultures.",
+    "user_id": 7
+  },
+  {
+    "title": "The Magic of New Zealand",
+    "content": "New Zealand's fjords, mountains, and friendly locals make it an unforgettable destination.",
+    "user_id": 7
+  },
+  {
+    "title": "Exploring the Scottish Highlands",
+    "content": "The Highlands are enchanting, with their rugged beauty and rich history.",
+    "user_id": 4
+  },
+  {
+    "title": "The Charm of Venice",
+    "content": "Venice's canals, gondolas, and unique architecture make it a dream destination.",
+    "user_id": 5
+  },
+  {
+    "title": "Discovering Ancient Egypt",
+    "content": "The pyramids and the Nile River take you back in time to a world of pharaohs and gods.",
+    "user_id": 5
+  },
+  {
+    "title": "Hiking in Patagonia",
+    "content": "Patagonia's dramatic landscapes are perfect for adventure seekers and nature lovers.",
+    "user_id": 6
+  },
+  {
+    "title": "The Vibrancy of Bangkok",
+    "content": "Bangkok is a city full of life, with bustling markets, stunning temples, and delicious street food.",
+    "user_id": 6
+  },
+  {
+    "title": "Exploring Iceland",
+    "content": "Iceland's geysers, waterfalls, and volcanic landscapes are a geologist's paradise.",
+    "user_id": 7
+  },
+  {
+    "title": "The Serenity of Bali",
+    "content": "Bali's beaches and rice terraces offer a perfect escape for relaxation and cultural exploration.",
+    "user_id": 7
+  },
+  {
+    "title": "The Wonders of Australia",
+    "content": "From the Great Barrier Reef to the Outback, Australia is full of natural marvels.",
+    "user_id": 4
+  },
+  {
+    "title": "A Journey Through Morocco",
+    "content": "Morocco's vibrant markets and stunning desert landscapes are a feast for the senses.",
+    "user_id": 1
+  },
+  {
+    "title": "Exploring the Canadian Rockies",
+    "content": "The Rockies offer breathtaking views and plenty of outdoor activities for adventurers.",
+    "user_id": 2
+  },
+  {
+    "title": "Discovering the History of Rome",
+    "content": "Rome is a city where history comes alive, from the Colosseum to the Vatican.",
+    "user_id": 3
+  },
+  {
+    "title": "The Beauty of the Maldives",
+    "content": "The Maldives' turquoise waters and luxurious resorts are the epitome of paradise.",
+    "user_id": 11
+  }
+]

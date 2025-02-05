@@ -1,0 +1,136 @@
+{% extends "blog/base.html" %}
+{% load thumbnail %}
+{% load social_share %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="media content-section d-flex mb-4">
+    <img src="{% thumbnail post.author.profile.photo 300x300 crop  %}" class="rounded-circle article-img mt-2">
+    <div class="media-body">
+      <div class="article-metadata mt-2 d-flex justify-content-between align-items-center">
+        <div>
+          <p class="author"><a class="mt-4" href="{{ post.get_absolute_url }}">{{ post.author.username }}</a></p>
+          <small class="text-muted">{{ post.publish|date:'d M Y' }}</small>
+          {% if post.author == user %}
+            <div>
+              <a class="btn btn-secondary btn-sm my-2" href="{% url "blog:post-update" post.id %}">Update</a>
+              <a class="btn btn-danger btn-sm my-2" href="{% url "blog:post-delete" post.id %}">Delete</a>
+            </div>
+          {% endif %}
+        </div>
+      
+        <div class="buttons-wrapper d-flex align-items-center gap-3">
+          {% with total_likes=post.users_like.count users_like=post.users_like.all %}    
+              <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like-btn link-secondary">
+                <i class="
+                  {% if request.user not in users_like %}
+                    fa-regular
+                  {% else %}
+                    fa-solid
+                  {% endif %} fa-bookmark fa-lg"></i><span class="total ms-1"> {{ total_likes }}</span>
+              </a>
+          {% endwith %}
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ post.get_absolute_url }}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="link-secondary">
+            <i class="fa-brands fa-facebook fa-lg"></i>
+          </a>
+          <a href="https://twitter.com/intent/tweet?text={{ post.title }}&url={{ post.get_absolute_url }}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="link-secondary">
+            <i class="fa-brands fa-twitter fa-lg"></i>
+          </a>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ post.get_absolute_url }}" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="link-secondary">
+            <i class="fa-brands fa-linkedin fa-lg"></i>
+          </a>
+        </div>
+      </div>
+      <div class="article-metadata mb-4">
+        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
+        <p class="article-content fw-light">Tags: {{ post.tags.all|join:", " }}</p>
+        {% if post.post_image %}
+          <img src="{{ post.post_image.url }}" class="img-fluid mb-4">
+        {% endif %}
+        <p class="article-content">{{ post.content }}</p>
+      </div>
+    </div>
+  </article>
+
+  <div class="container mb-5">
+    <h3 class="mb-4">Simliar Posts</h3>
+    <div class="d-flex flex-column">
+    {% for post in similar_posts %}
+        <h5><a class="link-secondary" href="{{ post.get_absolute_url}}">{{ post.title }}</a></h5>
+    {% empty %}
+      There are no similar posts yet.
+    {% endfor %}
+    </div>
+  </div>
+
+  {% with comments.count as total_comments %}
+    <div class="container mb-5">
+      <h3 class="mb-4">Comment{{ total_comments|pluralize }} ({{ total_comments }})</h3>
+      {% for comment in comments %}
+        <div class="media mb-4">
+          <div class="media-body d-flex flex-row gap-2">
+            <p class="mb-0"><strong>{{ comment.name }}</strong></p>
+            <p class="text-muted mb-0"> {{ comment.created|date:'d M Y' }}</p>
+          </div>
+          <div class="media-body border-bottom">
+            <p>{{ comment.body|linebreaks }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <p>No comments yet</p>
+      {% endfor %}
+    </div>
+    {% include "blog/includes/comment_form.html" %}
+  {% endwith %}
+{% endblock  %}
+
+{% block domready %}
+    const url = '{% url "blog:like" %}'
+    var options = {
+      method: 'POST',
+      headers: {'X-CSRFToken': csrftoken},
+      mode: 'same-origin'
+    }
+    document.querySelector('a.like-btn')
+            .addEventListener('click', function(e){
+              e.preventDefault();
+              var likeButton = this;
+              var icon = this.querySelector('i');
+
+              // add request body
+              var formData = new FormData();
+              formData.append('id', likeButton.dataset.id);
+              formData.append('action', likeButton.dataset.action);
+              options['body'] = formData;
+
+              // send HTTP request
+              fetch(url, options)
+              .then(response => response.json())
+              .then(data => {
+                if (data['status'] === 'ok') {
+                  var previousAction = likeButton.dataset.action;
+
+                  // toggle button text and data-action
+                  var action = previousAction === 'like' ? 'unlike' : 'like';
+                  likeButton.dataset.action = action;
+                  icon.classList.toggle('fa-regular');
+                  icon.classList.toggle('fa-solid');
+
+                  // update like count
+                  var likeCount = document.querySelector('span.total');
+                  var totalLikes = parseInt(likeCount.innerHTML);
+                  likeCount.innerHTML = previousAction === 'like' ? totalLikes + 1 : totalLikes -1;
+                }
+              })
+            });
+{% endblock  %}
