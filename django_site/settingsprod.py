@@ -95,7 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'projectone',
         'USER': 'projectoneuser',
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'PASSWORD': 'mypassword',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -156,3 +156,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'blog:home'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
