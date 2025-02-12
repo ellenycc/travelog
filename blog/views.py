@@ -16,7 +16,7 @@ from .models import Post, Comment
 from .forms import CommentForm
 
 
-def home(request):
+def home_redirect(request):
     return render(request, 'blog/home.html')
 
 
