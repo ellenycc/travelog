@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from urllib.parse import urlparse
 import os
-import sys
-import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 from urllib.parse import urlparse
