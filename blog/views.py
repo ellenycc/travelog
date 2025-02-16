@@ -44,17 +44,6 @@ class UserPostListView(ListView):
         return Post.published.filter(author=user).order_by('-publish')
 
 
-# class PostDetailView(DetailView):
-#     model = Post
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['comments'] = Comment.objects.filter(
-#             post=self.object).order_by('-created')
-#         context['form'] = CommentForm()
-#         return context
-
-
 def post_detail(request, slug):
     post = get_object_or_404(
         Post,

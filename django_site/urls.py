@@ -2,13 +2,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from blog.views import home_redirect
+from blog.views import PostListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', PostListView.as_view(), name='home'),
     path('blog/', include('blog.urls', namespace='blog')),
     path('users/', include('users.urls')),
-    path('', home_redirect),
 ]
 
 if settings.DEBUG:
