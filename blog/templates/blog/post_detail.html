@@ -22,7 +22,7 @@
       
         <div class="buttons-wrapper d-flex align-items-center gap-3">
           {% with total_likes=post.users_like.count users_like=post.users_like.all %}    
-              <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like-btn link-secondary">
+              <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like-btn link-primary">
                 <i class="
                   {% if request.user not in users_like %}
                     fa-regular
@@ -31,22 +31,12 @@
                   {% endif %} fa-bookmark fa-lg"></i><span class="total ms-1"> {{ total_likes }}</span>
               </a>
           {% endwith %}
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ post.get_absolute_url }}" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="link-secondary">
-            <i class="fa-brands fa-facebook fa-lg"></i>
-          </a>
-          <a href="https://twitter.com/intent/tweet?text={{ post.title }}&url={{ post.get_absolute_url }}" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="link-secondary">
-            <i class="fa-brands fa-twitter fa-lg"></i>
-          </a>
+          {% post_to_facebook object_or_url %}
+          {% post_to_twitter object_or_url %}
           <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ post.get_absolute_url }}" 
             target="_blank" 
             rel="noopener noreferrer" 
-            class="link-secondary">
+            class="link-primary">
             <i class="fa-brands fa-linkedin fa-lg"></i>
           </a>
         </div>
