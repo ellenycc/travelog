@@ -18,7 +18,7 @@
       <h3>Your posts</h3>
       {% for post in posts %}
         <article class="media content-section d-flex">
-          <img src="{% thumbnail post.author.profile.photo 300x300 crop  %}" class="rounded-circle article-img mt-2">
+          <img src="{% thumbnail post.author.profile.photo 300x300 crop  %}" class="rounded-circle  mt-2">
           <div class="media-body">
             <div class="article-metadata mt-2">
               <p class="author"><a class="mt-4" href="{% url "blog:user-posts" post.author.username %}">{{ post.author.username }}</a><p class="author">
