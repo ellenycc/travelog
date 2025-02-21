@@ -45,7 +45,7 @@
         <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
         <p class="article-content fw-light">Tags: {{ post.tags.all|join:", " }}</p>
         {% if post.post_image %}
-          <img src="{{ post.post_image.url }}" class="img-fluid mb-4">
+          <img src="{% thumbnail post.post_image 700x500 %}" class="img-fluid mb-4 rounded">
         {% endif %}
         <p class="article-content">{{ post.content }}</p>
       </div>

@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import JsonResponse
+from django.urls import reverse_lazy
 from users.models import CustomUser
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.http import require_POST
@@ -29,6 +30,16 @@ class PostListView(ListView):
 
     def get_queryset(self):
         return Post.published.all()
+
+
+class DraftListView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'blog/draft_list.html'
+    context_object_name = 'posts'
+    ordering = ['-created_at']
+
+    def get_queryset(self):
+        return Post.draft.filter(author=self.request.user)
 
 
 class UserPostListView(ListView):
@@ -78,12 +89,20 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content', 'post_image']
     template_name = 'blog/post_form.html'
-    success_url = '/blog/'
 
-    # set the author as current user
     def form_valid(self, form):
         form.instance.author = self.request.user
+        status = self.request.POST.get('status', 'DF')
+        if status not in dict(Post.Status.choices):
+            status = 'DF'
+        print(f"Received status: {status}")
+        form.instance.status = status
         return super().form_valid(form)
+
+    def get_success_url(self):
+        if self.object.status == 'DF':
+            return reverse_lazy('blog:draft-list')
+        return reverse_lazy('blog:post-detail', kwargs={'slug': self.object.slug})
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):

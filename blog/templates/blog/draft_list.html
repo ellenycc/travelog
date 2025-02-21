@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+{% load thumbnail %}
+{% load social_share %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  {% if posts %}
+      {% for post in posts %}
+          <article class="media content-section d-flex mb-4 px-5 pt-4">
+            <img src="{% thumbnail post.author.profile.photo 300x300 crop  %}" class="rounded-circle avatar mt-2 me-3">
+            <div class="media-body">
+              <div class="article-metadata mt-2 d-flex justify-content-between align-items-center">
+                <div>
+                  <p class="author"><a class="mt-4" href="{{ post.get_absolute_url }}">{{ post.author.username }}</a></p>
+                  <small class="text-muted">{{ post.publish|date:'d M Y' }}</small>
+                </div>
+                {% if post.author == user %}
+                <div>
+                  <a class="btn btn-warning btn-md my-2" href="{% url "blog:post-update" post.id %}">Edit</a>
+                </div>
+                {% endif %}
+              </div>
+              
+        
+              <h3 class="mt-2">{{ post.title }}</h3>
+              {% if post.tags.all %}
+                <p class="article-content fw-light">Tags: {{ post.tags.all|join:", " }}</p>
+              {% endif %}
+              {% if post.post_image %}
+                <img src="{% thumbnail post.post_image 600x400 %}" class="img-fluid mb-4 rounded">
+              {% endif %}
+              <p class="article-content">{{ post.content|truncatewords:30 }}</p>
+            
+            </div>
+          </article>
+      {% endfor %}
+  {% endif %}
+{% endblock  %}

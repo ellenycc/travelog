@@ -8,11 +8,12 @@
     <form method="post" enctype="multipart/form-data">  
       {% csrf_token %}
       <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Blog Post</legend>
+        <legend class="border-bottom mb-4">Create Post</legend>
         {{ form|crispy }}
       </fieldset>
-      <div class="form-group">
-        <button class="btn btn-outline-info mb-3" type="submit">Post</button>
+      <div class="form-group mt-3 mb-3">
+        <button class="btn btn-primary me-3" name="status" value="PB" type="submit">Publish</button>
+        <button class="btn btn-secondary" name="status" value="DF" type="submit">Save as Draft</button>
       </div>
     </form>
   </div>
