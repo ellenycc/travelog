@@ -56,26 +56,7 @@
   </header>
 
   <main role="main">
-    <section class="banner text-center">
-      <div class="banner-content">
-        <h1 class="banner-heading fw-bold">Looking for Your Next Adventure?</h1>
-        <p class="banner-subheading">Join a community of travelers and share your journey.</p>
-        <a href="#cta" class="btn btn-outline-light btn-md">Get Started</a>
-      </div>
-    </section>
-
-    <div class="container">
-      <div class="pt-3">
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-              {{ message }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-      {% block content %}{% endblock %}  
-    </div>
+    {% block content %}{% endblock %}  
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/a4f7e3b211.js" crossorigin="anonymous"></script>

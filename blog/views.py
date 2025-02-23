@@ -87,7 +87,7 @@ def post_detail(request, slug):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content', 'post_image']
+    fields = ['title', 'content', 'post_image', 'tags']
     template_name = 'blog/post_form.html'
 
     def form_valid(self, form):
@@ -95,7 +95,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         status = self.request.POST.get('status', 'DF')
         if status not in dict(Post.Status.choices):
             status = 'DF'
-        print(f"Received status: {status}")
         form.instance.status = status
         return super().form_valid(form)
 
@@ -107,7 +106,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'post_image']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

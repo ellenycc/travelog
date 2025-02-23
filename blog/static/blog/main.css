@@ -1,6 +1,6 @@
 body {
   background: #fff;
-  margin-top: 5rem;
+  padding-top: 100px;
 }
 
 ul {
@@ -106,12 +106,15 @@ body p.author {
 }
 
 .content-section {
+  width: 80%;
   background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 6px;
-  margin-top: 1.5rem;
+  margin-top: 30px;
   margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .comment-body {
