@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import JsonResponse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from users.models import CustomUser
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.http import require_POST
@@ -17,19 +17,24 @@ from .models import Post, Comment
 from .forms import CommentForm
 
 
-def home_redirect(request):
+def home(request):
     return render(request, 'blog/home.html')
 
 
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/home.html'
+    # template_name = 'blog/posts.html'
     context_object_name = 'posts'
     ordering = ['-publish']
-    paginate_by = 5
+    paginate_by = 4
 
     def get_queryset(self):
         return Post.published.all()
+
+    def get_template_names(self):
+        if self.request.path == reverse('home'):
+            return 'blog/home.html'
+        return 'blog/posts.html'
 
 
 class DraftListView(LoginRequiredMixin, ListView):
@@ -187,3 +192,5 @@ def liked_post(request):
         'blog/readinglist.html',
         {'liked_posts': liked_posts}
     )
+
+# all the posts of a city

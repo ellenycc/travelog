@@ -13,6 +13,7 @@ app_name = 'blog'
 
 urlpatterns = [
     path('', PostListView.as_view(), name='home'),
+    path('posts/', PostListView.as_view(), name='posts'),
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),
     path('post/new/', PostCreateView.as_view(), name='post-create'),
     path('post/<slug:slug>/', views.post_detail, name='post-detail'),

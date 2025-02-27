@@ -17,6 +17,13 @@ body p.author {
   margin-bottom: 0 !important;
 }
 
+.navbar-brand {
+  font-family: 'Lobster', serif;
+  font-weight: 700;
+  font-size: 36px;
+  font-style: normal;
+  text-transform: capitalize;
+}
 
 .navbar-nav .nav-link:hover {
   color: #ffffff;
@@ -85,14 +92,38 @@ body p.author {
 
 .album-heading {
   margin-top: 20px;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
 }
 
-.card {
+.card-destinations {
+  height: 300px;
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+}
+
+img.card-destinations {
+  overflow: hidden;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center text */
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px 20px; 
+}
+
+.card-latest-blog {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }  
 
-.card:hover {
+.card--latest-blog:hover {
   transform: scale(1.03);
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
 }
@@ -106,15 +137,19 @@ body p.author {
 }
 
 .content-section {
-  width: 80%;
   background: #ffffff;
   padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 6px;
   margin-top: 30px;
   margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.sidebar {
+  margin-top: 30px;
+  padding: 10px 20px;
 }
 
 .comment-body {
@@ -185,4 +220,22 @@ button#userDropdown {
 button#userDropdown:focus {
   outline: none;
   border: none;
+}
+
+.divider {
+  margin: 5rem 0;
+}
+
+
+.post-link:hover {
+  color: #fe750c;
+  text-decoration: underline;
+}
+
+.card-blog {
+  transition: background 0.6s ease-in-out;
+}
+
+.card-blog:hover {
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(255, 193, 7, 0.1));
 }
