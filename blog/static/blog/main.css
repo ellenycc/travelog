@@ -102,10 +102,16 @@ body p.author {
   border-radius: 8px;
 }
 
-img.card-destinations {
+
+.card-destinations {
   overflow: hidden;
   object-fit: cover;
   display: block;
+}
+
+.card-destinations:hover  img{
+  transition: .2s ease;
+  transform: scale(1.05);
 }
 
 .overlay-text {
@@ -119,21 +125,26 @@ img.card-destinations {
   padding: 10px 20px; 
 }
 
-.card-latest-blog {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}  
-
-.card--latest-blog:hover {
-  transform: scale(1.03);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-}
-
 .card-img-top {
   height: 220px;
   width: 100%;
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(.5rem - 1px);
+  border-top-right-radius: calc(.5rem - 1px);
   object-fit: cover;
+}
+
+.card-img-top-container {
+  overflow: hidden;
+  object-fit: cover;
+  display: block;
+  border-top-left-radius: calc(.5rem - 1px);
+  border-top-right-radius: calc(.5rem - 1px);
+}
+
+.card-latest-blog:hover img {
+  transition: .2s ease;
+  transform: scale(1.05);
+  overflow: hidden;
 }
 
 .content-section {

@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load thumbnail %}
+{% load blog_tags %}
 {% load static %}
 
 {% block content %}
@@ -29,32 +30,36 @@
       <div class="container text-center">
         <h2 class="album-heading">Top destinations</h2>
       </div>
+
       <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-          <div class="col">
-            <div class="card card-destinations h-100">
-              <img class="card-destinations" src="{% static 'blog/image/hong-kong2.jpg' %}" alt="destinations-thumbnail" loading="lazy">
-              <div class="overlay-text">Hong Kong</div>
-            </div>
-          </div>      
-          <div class="col">
-            <div class="card card-destinations h-100">
-              <img class="card-destinations" src="{% static 'blog/image/london.jpg' %}" alt="destinations-thumbnail">
-              <div class="overlay-text">London</div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card card-destinations h-100">
-              <img class="card-destinations" src="{% static 'blog/image/paris.jpg' %}" alt="destinations-thumbnail">
-              <div class="overlay-text">Paris</div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card card-destinations h-100">
-              <img class="card-destinations" src="{% static 'blog/image/porto.jpg' %}" alt="destinations-thumbnail">
-              <div class="overlay-text">Porto</div>
-            </div>
-          </div>
+          {% for tag in tags %}
+            {% if tag.slug == 'paris' or tag.slug == 'hong-kong' or tag.slug == 'london' or tag.slug == 'porto' %}
+              <div class="col">
+                <a href="{% url 'blog:tag' tag.slug %}">
+                  <div class="card card-destinations h-100 border-0">
+                    {% if tag.slug == 'paris' %}
+                      <img class="card-destinations w-100" src="{% static 'blog/image/paris.jpg' %}" 
+                      alt="Paris-thumbnail" loading="lazy">
+                      <div class="overlay-text">Paris</div>
+                    {% elif tag.slug == 'hong-kong' %}
+                      <img class="card-destinations w-100" src="{% static 'blog/image/hong-kong.jpg' %}" 
+                      alt="Hong Kong-thumbnail" loading="lazy">
+                      <div class="overlay-text">Hong Kong</div>
+                    {% elif tag.slug == 'london' %}
+                      <img class="card-destinations w-100" src="{% static 'blog/image/london.jpg' %}" 
+                      alt="London-thumbnail" loading="lazy">
+                      <div class="overlay-text">London</div>
+                    {% elif tag.slug == 'porto' %}
+                      <img class="card-destinations w-100" src="{% static 'blog/image/porto.jpg' %}" 
+                      alt="Porto-thumbnail" loading="lazy">
+                      <div class="overlay-text">Porto</div>
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}    
       </div>
     </div>
     <hr class="divider">
@@ -68,8 +73,8 @@
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 g-4">
           {% for post in posts %}
             <div class="col">
-              <div class="card card-latest-blog h-100 shadow-sm">
-                <div class="">
+              <div class="card card-latest-blog h-100 shadow-sm border-0">
+                <div class="card-img-top-container">
                   <img class="card-img-top" src="{{ post.post_image.url }}" alt="blog-thumbnail" loading="lazy">
                 </div>
                 <div class="card-body d-flex flex-column">

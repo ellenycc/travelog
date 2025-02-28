@@ -13,17 +13,20 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
+from taggit.models import Tag
 from .models import Post, Comment
 from .forms import CommentForm
 
 
 def home(request):
-    return render(request, 'blog/home.html')
+    return render(
+        request,
+        'blog/home.html',
+    )
 
 
 class PostListView(ListView):
     model = Post
-    # template_name = 'blog/posts.html'
     context_object_name = 'posts'
     ordering = ['-publish']
     paginate_by = 4
@@ -35,6 +38,11 @@ class PostListView(ListView):
         if self.request.path == reverse('home'):
             return 'blog/home.html'
         return 'blog/posts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 
 class DraftListView(LoginRequiredMixin, ListView):
@@ -186,11 +194,26 @@ def post_like(request):
 
 @login_required
 def liked_post(request):
-    liked_posts = Post.objects.filter(users_like=request.user)
+    liked_posts = Post.published.filter(users_like=request.user)
     return render(
         request,
         'blog/readinglist.html',
         {'liked_posts': liked_posts}
     )
 
-# all the posts of a city
+
+def tag(request, tag_slug=None):
+    post_list = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        post_list = post_list.filter(tags__in=[tag])
+
+    return render(
+        request,
+        'blog/tag.html',
+        {
+            'post_list': post_list,
+            'tag': tag
+        }
+    )

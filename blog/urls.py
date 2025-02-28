@@ -23,5 +23,6 @@ urlpatterns = [
     path('<int:post_id>/comment/', views.post_comment, name='post_comment'),
     path('like/', views.post_like, name='like'),
     path('readinglist/', views.liked_post, name='liked-post'),
+    path('tag/<slug:tag_slug>/', views.tag, name='tag'),
     path('about/', views.about, name='blog-about'),
 ]

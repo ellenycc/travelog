@@ -21,3 +21,8 @@ def get_most_commented_posts(count=5):
     return Post.published.annotate(
         total_comments=Count('comments')
     ).order_by('-total_comments')[:count]
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
