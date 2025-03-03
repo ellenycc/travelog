@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from blog.models import Post
 from users.models import Profile
 from .forms import CustomUserChangeForm, CustomUserCreationForm, ProfileUpdateForm
 
@@ -30,6 +31,11 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     def get_object(self):
         return get_object_or_404(Profile, user=self.request.user)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts'] = self.object.user.blog_posts.all()
+        return context
+
 
 @login_required
 def settings(request):
@@ -46,7 +52,7 @@ def settings(request):
             messages.success(
                 request, f'Your account has been updated!'
             )
-        return redirect('settings')
+        return redirect('profile')
     else:
         u_form = CustomUserChangeForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)

@@ -7,7 +7,7 @@
 {% block content %}
 <div class="content-section px-5 py-5">
   <div class="media d-flex mb-4">
-    <img class="rounded-circle account-img" src="{% thumbnail user.profile.photo 300x300 crop %}">
+    <img class="rounded-circle account-img me-4" src="{% thumbnail user.profile.photo 120x120 crop %}">
     <div class="media-body d-flex flex-column justify-content-center">
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">{{ user.email }}</p>
@@ -21,7 +21,7 @@
         {% csrf_token %}
     </fieldset>
     <div class="form-group">
-      <button class="btn btn-primary mb-3" type="submit">Update Profile</button>
+      <button class="btn btn-primary my-3" type="submit">Update Profile</button>
     </div>
   </form>
 </div>

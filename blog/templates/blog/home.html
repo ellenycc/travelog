@@ -37,7 +37,7 @@
             {% if tag.slug == 'paris' or tag.slug == 'hong-kong' or tag.slug == 'london' or tag.slug == 'porto' %}
               <div class="col">
                 <a href="{% url 'blog:tag' tag.slug %}">
-                  <div class="card card-destinations h-100 border-0">
+                  <div class="card card-destinations h-100 border-0 shadow-sm">
                     {% if tag.slug == 'paris' %}
                       <img class="card-destinations w-100" src="{% static 'blog/image/paris.jpg' %}" 
                       alt="Paris-thumbnail" loading="lazy">
@@ -70,7 +70,7 @@
         <h2 class="album-heading">Latest Posts</h2>
       </div>
       <div class="container">
-        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 g-4">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
           {% for post in posts %}
             <div class="col">
               <div class="card card-latest-blog h-100 shadow-sm border-0">
@@ -78,7 +78,7 @@
                   <img class="card-img-top" src="{{ post.post_image.url }}" alt="blog-thumbnail" loading="lazy">
                 </div>
                 <div class="card-body d-flex flex-column">
-                  <h4><a class="card-title stretched-link text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+                  <h4><a class="card-title article-title stretched-link text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
                   <p class="card-text flex-grow-1">{{ post.content|truncatewords:15 }}</p>
                   <div class="border-top pt-2 d-flex justify-content-between align-items-center text-end">
                     <img src="{% thumbnail post.author.profile.photo 50x50 crop  %}" class="rounded-circle avatar mt-2 me-2" width="40" height="40">
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-center">
-        <a class="btn btn-outline-info mt-4 " href="{% url 'blog:posts' %}">View all blogs</a>
+        <a class="btn btn-outline-info mt-5 " href="{% url 'blog:posts' %}">View all blogs</a>
       </div>
     </div>
   </div>

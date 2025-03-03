@@ -1,7 +1,7 @@
 <ul class="list-inline">
   {% for post in latest_posts %}
     <li class="mb-2">
-      <a class="post-link" href="{{ post.get_absolute_url }}">{{ post.title}}</a>
+      <a class="blog-link fw-bold" href="{{ post.get_absolute_url }}">{{ post.title}}</a>
     </li>
   {% endfor %}
 </ul>

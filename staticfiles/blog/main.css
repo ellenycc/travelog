@@ -227,7 +227,7 @@ button#userDropdown:focus {
 }
 
 
-.post-link:hover {
+.blog-link:hover {
   color: #fe750c;
   text-decoration: underline;
 }

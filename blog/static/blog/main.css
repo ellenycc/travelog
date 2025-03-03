@@ -149,17 +149,14 @@ body p.author {
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 6px;
   margin-top: 30px;
   margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 .sidebar {
-  margin-top: 30px;
+  margin-top: 60px;
   padding: 10px 20px;
 }
 
@@ -173,6 +170,7 @@ body p.author {
 
 .article-title {
   color: #444444;
+  text-transform: capitalize;
 }
 
 a.article-title:hover {
@@ -208,15 +206,13 @@ a.article-title:hover {
   vertical-align: middle;
 }
 
-.account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
 
-.account-heading {
-  font-size: 2.5rem;
+
+.account-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 3px solid #ddd;
 }
 
 .media-body {
@@ -237,10 +233,12 @@ button#userDropdown:focus {
   margin: 5rem 0;
 }
 
+.blog-link {
+  color: #02327a;
+}
 
-.post-link:hover {
+.blog-link:hover {
   color: #fe750c;
-  text-decoration: underline;
 }
 
 .card-blog {
@@ -249,4 +247,9 @@ button#userDropdown:focus {
 
 .card-blog:hover {
   background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(255, 193, 7, 0.1));
+}
+
+.fa-bookmark:hover,
+.fa-brands:hover {
+  color: #fe750c;
 }

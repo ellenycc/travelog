@@ -3,13 +3,13 @@
 {% block content %}
   <form action="{% url "blog:post_comment" post.id %}" method="post">  
     <fieldset class="form-group">
-      <h3 class="pt-5 mb-4">Leave A Comment</h3>
-      <p>Your email address will not be published.</p>
+      <h3 class="pt-5">Leave A Comment</h3>
+      <p class="mb-5">Your email address will not be published.</p>
       {{ form|crispy }}
       {% csrf_token %}
     </fieldset>
     <div class="form-group">
-      <button class="btn btn-outline-info mb-3" type="submit">Post Comment</button>
+      <button class="btn btn-outline-info py-3" type="submit">Post Comment</button>
     </div>
   </form>
 {% endblock  %}

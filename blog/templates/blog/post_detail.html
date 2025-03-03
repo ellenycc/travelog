@@ -7,44 +7,45 @@
 
 {% block content %}
 <div class="container mx-auto">
-  <div class="row row-cols-1">
+  <div class="row">
     <div class="col-md-8">
-
-      <article class="media content-section d-flex mb-4">
-
+      <article class="media content-section d-flex mb-4 py-4 px-5 border-0">
         <!-- Post section -->
-        <img src="{% thumbnail post.author.profile.photo 300x300 crop  %}" class="rounded-circle avatar mt-4 me-3">
         <div class="media-body">
-          <div class="article-metadata mt-2 d-flex justify-content-between align-items-center">
-            <div class="mt-3 mb-4">
-              <p class="author"><a class="mt-4" href="{{ post.get_absolute_url }}">{{ post.author.username }}</a></p>
-              <small class="text-muted">{{ post.publish|date:'d M Y' }}</small>
+          <div class="article-metadata d-flex align-items-center">
+            <div class="avatar-wrapper">
+              <img src="{% thumbnail post.author.profile.photo 300x300 crop  %}" class="rounded-circle avatar me-3">
             </div>
-          
-            <div class="buttons-wrapper d-flex align-items-center gap-3">
-              {% with total_likes=post.users_like.count users_like=post.users_like.all %}    
-                  <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="like-btn link-primary">
-                    <i class="
-                      {% if request.user not in users_like %}
-                        fa-regular
-                      {% else %}
-                        fa-solid
-                      {% endif %} fa-bookmark fa-lg"></i><span class="total ms-1"> {{ total_likes }}</span>
-                  </a>
-              {% endwith %}
-              {% post_to_facebook object_or_url %}
-              {% post_to_twitter object_or_url %}
-              <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ post.get_absolute_url }}" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="link-primary">
-                <i class="fa-brands fa-linkedin fa-lg"></i>
-              </a>
+            <div class="mt-3 mb-4">
+              <p class="author"><a class="mt-4" href="{% url 'blog:user-posts' post.author.username %}">{{ post.author.username }}</a></p>
+              <small class="text-muted">Posted on {{ post.publish|date:'d M Y' }}</small>
             </div>
           </div>
+
+          <!-- Save and social share buttons -->
+          <div class="buttons-wrapper d-flex align-items-center mb-4 gap-3 border-bottom pb-2">
+            {% with total_likes=post.users_like.count users_like=post.users_like.all %}    
+                <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_like %}un{% endif %}like" class="link-primary">
+                  <i class="
+                    {% if request.user not in users_like %}
+                      fa-regular
+                    {% else %}
+                      fa-solid
+                    {% endif %} fa-bookmark fa-lg"></i><span class="total ms-1"> {{ total_likes }}</span>
+                </a>
+            {% endwith %}
+            {% post_to_facebook object_or_url %}
+            {% post_to_twitter object_or_url %}
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ post.get_absolute_url }}" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+            class="link-primary">
+              <i class="fa-brands fa-linkedin fa-lg"></i>
+            </a>
+          </div>
           <div class="article-metadata mb-4">
-            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-            <p class="article-content fw-light">Tags: {{ post.tags.all|join:", " }}</p>
+            <h2 class="article-title">{{ post.title }}</h2>
+            <p class="article-content fw-light">#{{ post.tags.all|join:"#" }}</p>
             {% if post.post_image %}
               <img src="{% thumbnail post.post_image 700x500 %}" alt="{{ post.title }}" class="img-fluid mb-4 rounded" loading="lazy">
             {% endif %}
@@ -60,10 +61,10 @@
 
           <!-- Similar posts -->
           <div class="pt-5 mb-5">
-            <h3 class="mb-4">You may also be interested in</h3>
+            <h3 class="mb-4">Similar Posts</h3>
             <div class="d-flex flex-column">
             {% for post in similar_posts %}
-                <h5><a class="post-link" href="{{ post.get_absolute_url}}">{{ post.title }}</a></h5>
+                <h2 class="article-title"><a class="blog-link" href="{{ post.get_absolute_url}}">{{ post.title }}</a></h2>
             {% empty %}
               There are no similar posts yet.
             {% endfor %}
@@ -72,8 +73,7 @@
 
           <!-- Comment section -->
           {% with comments.count as total_comments %}
-              <h3 class="pt-5">Comment{{ total_comments|pluralize }} ({{ total_comments }})</h3>
-              <hr class="divider">
+              <h3 class="pt-5 mb-5">Comment{{ total_comments|pluralize }} ({{ total_comments }})</h3>
               {% for comment in comments %}
                 <div class="media mb-4">
                   <div class="media-body d-flex flex-row gap-2">
@@ -98,21 +98,27 @@
     <div class="col-md-4">
       <div class="card sidebar">
         <div class="card-body">
-          <h5 class="card-title mb-3">Latest Posts</h5>
+          <h5 class="card-title py-3">Latest Posts</h5>
           {% show_latest_posts 3 %}
         </div>
       </div>
       <div class="card sidebar">
         <div class="card-body">
-          <h5 class="card-title mb-3">Most Commented Posts</h5>
+          <h5 class="card-title py-3">Most Commented Posts</h5>
           {% get_most_commented_posts as most_commented_posts %}
           <ul class="list-unstyled">
             {% for post in most_commented_posts %}
               <li class="mb-2">
-                <a class="post-link" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                <a class="blog-link fw-bold" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
               </li>
             {% endfor %}
           </ul>
+        </div>
+      </div>
+      <div class="card sidebar">
+        <div class="card-body">
+          <h5 class="card-title py-3">Who to follow</h5>
+          {% show_latest_posts 3 %}
         </div>
       </div>
     </div>

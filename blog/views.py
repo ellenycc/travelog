@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.urls import reverse, reverse_lazy
 from users.models import CustomUser
 from django.shortcuts import redirect, render, get_object_or_404
@@ -69,14 +69,13 @@ class UserPostListView(ListView):
 
 
 def post_detail(request, slug):
-    post = get_object_or_404(
-        Post,
-        slug=slug,
-        status=Post.Status.PUBLISHED,
-    )
+    post = get_object_or_404(Post, slug=slug)
 
     comments = post.comments.filter(active=True)
     form = CommentForm()
+
+    # if request.user != post.author and post.status != Post.Status.DRAFT:
+    #     return Http404("This post is not published.")
 
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.published.filter(
