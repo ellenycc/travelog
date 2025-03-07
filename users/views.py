@@ -1,11 +1,13 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.detail import DetailView
+from django.views.decorators.http import require_POST
 
 from blog.models import Post
-from users.models import Profile
+from users.models import CustomUser, Profile
 from .forms import CustomUserChangeForm, CustomUserCreationForm, ProfileUpdateForm
 
 
@@ -27,9 +29,11 @@ class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'account/profile.html'
     context_object_name = 'profile'
+    paginate_by = 5
 
     def get_object(self):
-        return get_object_or_404(Profile, user=self.request.user)
+        username = self.kwargs['username']  # Get username from URL
+        return get_object_or_404(Profile, user__username=username)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -52,7 +56,7 @@ def settings(request):
             messages.success(
                 request, f'Your account has been updated!'
             )
-        return redirect('profile')
+        return redirect('profile', username=request.user.username)
     else:
         u_form = CustomUserChangeForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
@@ -61,3 +65,26 @@ def settings(request):
         'p_form': p_form
     }
     return render(request, 'account/settings.html', context)
+
+
+@require_POST
+@login_required
+def follow(request):
+    profile_id = request.POST.get('id')
+    action = request.POST.get('action')
+    current_user_profile = get_object_or_404(Profile, user=request.user)
+
+    if profile_id and action:
+        try:
+            # fetch the Profile object with the given id
+            profile = Profile.objects.get(id=profile_id)
+            # Add the profile to current user profile follows list
+            if action == 'follow':
+                current_user_profile.follows.add(profile)
+            # Remove the profile to current user profile follows list
+            else:
+                current_user_profile.follows.remove(profile)
+            return JsonResponse({'status': 'ok'})
+        except Profile.DoesNotExist:
+            return JsonResponse({'status': 'error'})
+    return JsonResponse({'status': 'error'})

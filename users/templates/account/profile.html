@@ -6,38 +6,182 @@
 
 {% block content %}
 <div class="container py-5">
-  <div class="content-section shadow-sm d-flex flex-column align-items-center border-0">
-      <img class="rounded-circle account-img mb-4" src=" {% thumbnail user.profile.photo 250x250 crop %}">
-      <h3>{{ user.username }}</h3>
-      <p class="text-secondary mb-1">{{ user.email }}</p>
-      <p>Joined on {{ user.date_joined|date:'d M Y' }}</p>
-      <a class="btn btn-success my-4" href="{% url "settings" %}">Edit Profile</a>
+  <div class="pt-3">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
-
-  <div class="mt-5">
-      <h3 class="text-center">Your posts</h3>
-      <div class="container d-flex flex-column align-items-center min-vh-100 pt-3">
-        {% for post in posts %}
-          <a href="{{ post.get_absolute_url }}" class="text-decoration-none w-100 w-md-75 w-lg-50">
-            <div class="card card-blog mb-3 border-0 shadow-sm mx-auto">
-              <div class="row g-0 align-items-center">
-                <div class="col-3 col-md-2">
-                  <img src="{% thumbnail post.post_image 180x180 crop%}" class="blog-thumbnail img-fluid rounded" alt="{{post.title}}">
-                </div>
-                <div class="col-9 col-md-10">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>{{ profile.user.username }}</h3>
+      {% for post in posts %}
+        <a href="{{ post.get_absolute_url }}" class="text-decoration-none w-100 w-md-75 w-lg-50">
+          <div class="card card-blog py-3 border-0 mx-auto">
+            <div class="row g-0 align-items-center">
+              <div class="col-3 col-md-2">
+                <img src="{% thumbnail post.post_image 180x180 crop%}" class="blog-thumbnail img-fluid rounded" alt="{{post.title}}">
+              </div>
+              <div class="col-9 col-md-10">
                   <div class="card-body">
                     <p class="card-text"><small class="text-body-secondary">{{ post.publish|date:'d M Y' }}</small></p>
                     <h3 class="card-title">{{ post.title }}</h3>
                     <p class="card-text d-none d-md-block">{{ post.content|truncatewords:20 }}</p>
                   </div>
-                </div>
               </div>
             </div>
-          </a>
+          </div>
+        </a>
         {% empty %}
-          <p class="text-center text-muted">You haven't published any posts yet.</p>
+          <p class="text-center text-muted">No posts yet.</p>
         {% endfor %}
+    </div>
+    <div class="col-md-4">
+      <div class="card user-profile py-4 px-2">
+        <div class="card-body">
+            <img src="{% thumbnail profile.user.profile.photo 50x50 crop  %}" class="rounded-circle me-2 mb-4" width="90" height="90">
+            <h5 class="card-title">{{ profile.user.username }}</h5>
+            <p class="text-muted">Joined on {{ profile.user.date_joined|date:'d M Y' }}</p>
+            
+            {% if user == profile.user %}
+              <a class="btn btn-success my-4" href="{% url "settings" %}">Edit Profile</a>
+            {% endif %}
+
+            {% with total_followers=profile.followed_by.count %}
+              <p class="count">
+                <span class="total">{{ total_followers }}</span>
+                  follower{{ total_followers|pluralize }}
+              </p>
+              
+              {% if user != profile.user %}
+                <button id="follow-btn"
+                        class="btn {% if request.user.profile in profile.followed_by.all %}btn-warning{% else %}btn-outline-warning{% endif %} follow-button"
+                        data-id="{{ profile.id }}"
+                        data-action="{% if request.user.profile in profile.followed_by.all %}unfollow{% else %}follow{% endif %}" class="follow button">
+                  {% if request.user.profile in profile.followed_by.all %}
+                    Unfollow
+                  {% else %}
+                    Follow
+                  {% endif %}
+                </button>
+              {% endif %}
+      
+
+              <h5 class="card-title pt-5 pb-3">Following</h5>   
+              {% for following in profile.follows.all %}
+                <div class="d-flex align-items-center pb-2">
+                  <img src="{% thumbnail following.photo 50x50 crop %}" class="rounded-circle me-2" width="30" height="30" alt="{{ following.user.username }}">
+                  <a href="{% url "profile" following.user.username %}" class="link profile-link">{{ following }}</a>
+                </div>
+              {% endfor %}
+         
+              <h5 class="card-title pt-5 pb-3">Followed by</h5>
+              {% for follower in  profile.followed_by.all %}
+                <div class="d-flex align-items-center pb-2">
+                  <img src="{% thumbnail follower.photo 50x50 crop %}" class="rounded-circle me-2" width="30" height="30" alt="{{ follower.user.username }}">
+                  <a href="{% url "profile" follower.user.username %}" class="link profile-link">{{ follower }}
+                  </a>
+                </div>
+              {% endfor %}
+            {% endwith %}
+        </div>
       </div>
+    </div>
+
+    {% if is_paginated %}
+      <nav aria-label="Page navigation" class="py-4">
+        <ul class="pagination justify-content-center">
+
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1">First</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a> 
+            </li>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <li class="page-item active">
+                <span class="page-link">{{ num }}</span>
+              </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
+            {% elif num == 1 or num == page_obj.paginator.num_pages %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+              </li>
+            {% elif num == page_obj.number|add:"-3" or num == page_obj.number|add:"3" %}
+              <li class="page-item disabled">
+                <a class="page-link">...</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a> 
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
   </div>
+  
 </div>
 {% endblock  %}
+
+{% block domready %}
+  const url = '{% url "follow" %}';
+  var options = {
+    method: 'POST',
+    headers: {'X-CSRFToken': csrftoken},
+    mode: 'same-origin'
+  }
+
+  document.querySelector('button#follow-btn')
+      .addEventListener('click', function(e){
+        e.preventDefault();
+        var followButton = this;
+
+        var formData = new FormData();
+        formData.append('id', followButton.dataset.id);
+        formData.append('action', followButton.dataset.action);
+        options['body'] = formData;
+
+        fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+          if (data['status'] === 'ok') {
+            var previousAction = followButton.dataset.action;
+
+            var action = previousAction === 'follow' ? 'unfollow' : 'follow';
+            followButton.dataset.action = action;
+            followButton.innerHTML = action;
+
+            if (action == 'follow') {
+              followButton.classList.remove('btn-warning');
+              followButton.classList.add('btn-outline-warning');
+            } else {
+              followButton.classList.remove('btn-outline-warning');
+              followButton.classList.add('btn-warning');
+            }
+
+            var followerCount = document.querySelector('p.count .total');
+            var totalFollowers = parseInt(followerCount.innerHTML);
+            followerCount.innerHTML = previousAction === 'follow' ? totalFollowers + 1 : totalFollowers - 1;
+            location.reload();
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
+{% endblock %}

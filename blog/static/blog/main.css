@@ -90,11 +90,6 @@ body p.author {
   }
 }
 
-.album-heading {
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-
 .card-destinations {
   height: 300px;
   position: relative;
@@ -109,8 +104,11 @@ body p.author {
   display: block;
 }
 
-.card-destinations:hover  img{
-  transition: .2s ease;
+.card-destinations img {
+  transition: transform .2s ease;
+}
+
+.card-destinations:hover img {
   transform: scale(1.05);
 }
 
@@ -141,10 +139,24 @@ body p.author {
   border-top-right-radius: calc(.5rem - 1px);
 }
 
-.card-latest-blog:hover img {
-  transition: .2s ease;
-  transform: scale(1.05);
+.card-latest-blog {
   overflow: hidden;
+}
+
+.card-latest-blog img {
+  transition: transform .2s ease-in-out;
+}
+
+.card-latest-blog:hover img {
+  transform: scale(1.05);
+}
+
+.user-profile-photo {
+  transition: transform .2s ease-in-out;
+}
+
+.user-profile-photo:hover {
+  transform: scale(1.05);
 }
 
 .content-section {
@@ -206,8 +218,6 @@ a.article-title:hover {
   vertical-align: middle;
 }
 
-
-
 .account-img {
   width: 120px;
   height: 120px;
@@ -233,11 +243,13 @@ button#userDropdown:focus {
   margin: 5rem 0;
 }
 
-.blog-link {
+.blog-link,
+.profile-link {
   color: #02327a;
 }
 
-.blog-link:hover {
+.blog-link:hover,
+.profile-link:hover  {
   color: #fe750c;
 }
 

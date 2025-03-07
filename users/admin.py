@@ -5,7 +5,7 @@ from .models import CustomUser, Profile
 
 
 class ProfileInline(admin.StackedInline):
-    list_display = ['user', 'photo']
+    list_display = ['user', 'photo', 'follows']
     raw_id_fields = ['user']
 
     model = Profile

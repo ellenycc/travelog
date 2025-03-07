@@ -1,14 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
-from django.http import Http404, JsonResponse
+from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
 from users.models import CustomUser
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.views.generic import (
     ListView,
-    DetailView,
     CreateView,
     UpdateView,
     DeleteView
@@ -41,6 +40,7 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['users'] = CustomUser.objects.all()
         context['tags'] = Tag.objects.all()
         return context
 
@@ -66,6 +66,11 @@ class UserPostListView(ListView):
             CustomUser, username=self.kwargs.get('username')
         )
         return Post.published.filter(author=user).order_by('-publish')
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['author'] = self.object.author
+    #     return context
 
 
 def post_detail(request, slug):

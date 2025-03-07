@@ -16,11 +16,18 @@ class CustomUser(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField("users.CustomUser", on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     photo = models.ImageField(
         upload_to='profile_pics',
         blank=True,
         default='profile_pics/default.jpg'
+    )
+    follows = models.ManyToManyField(
+        "self",
+        related_name='followed_by',
+        symmetrical=False,
+        blank=True
     )
 
     def __str__(self):
