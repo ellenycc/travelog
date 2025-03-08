@@ -90,11 +90,6 @@ body p.author {
   }
 }
 
-.album-heading {
-  margin-top: 20px;
-  margin-bottom: 40px;
-}
-
 .card-destinations {
   height: 300px;
   position: relative;
@@ -102,10 +97,19 @@ body p.author {
   border-radius: 8px;
 }
 
-img.card-destinations {
+
+.card-destinations {
   overflow: hidden;
   object-fit: cover;
   display: block;
+}
+
+.card-destinations img {
+  transition: transform .2s ease;
+}
+
+.card-destinations:hover img {
+  transform: scale(1.05);
 }
 
 .overlay-text {
@@ -119,36 +123,52 @@ img.card-destinations {
   padding: 10px 20px; 
 }
 
-.card-latest-blog {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}  
-
-.card--latest-blog:hover {
-  transform: scale(1.03);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
-}
-
 .card-img-top {
   height: 220px;
   width: 100%;
-  border-top-left-radius: calc(.25rem - 1px);
-  border-top-right-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(.5rem - 1px);
+  border-top-right-radius: calc(.5rem - 1px);
   object-fit: cover;
+}
+
+.card-img-top-container {
+  overflow: hidden;
+  object-fit: cover;
+  display: block;
+  border-top-left-radius: calc(.5rem - 1px);
+  border-top-right-radius: calc(.5rem - 1px);
+}
+
+.card-latest-blog {
+  overflow: hidden;
+}
+
+.card-latest-blog img {
+  transition: transform .2s ease-in-out;
+}
+
+.card-latest-blog:hover img {
+  transform: scale(1.05);
+}
+
+.user-profile-photo {
+  transition: transform .2s ease-in-out;
+}
+
+.user-profile-photo:hover {
+  transform: scale(1.05);
 }
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 6px;
   margin-top: 30px;
   margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 .sidebar {
-  margin-top: 30px;
+  margin-top: 60px;
   padding: 10px 20px;
 }
 
@@ -162,6 +182,7 @@ img.card-destinations {
 
 .article-title {
   color: #444444;
+  text-transform: capitalize;
 }
 
 a.article-title:hover {
@@ -198,14 +219,10 @@ a.article-title:hover {
 }
 
 .account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
-}
-
-.account-heading {
-  font-size: 2.5rem;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 3px solid #ddd;
 }
 
 .media-body {
@@ -226,10 +243,14 @@ button#userDropdown:focus {
   margin: 5rem 0;
 }
 
+.blog-link,
+.profile-link {
+  color: #02327a;
+}
 
-.blog-link:hover {
+.blog-link:hover,
+.profile-link:hover  {
   color: #fe750c;
-  text-decoration: underline;
 }
 
 .card-blog {
@@ -238,4 +259,9 @@ button#userDropdown:focus {
 
 .card-blog:hover {
   background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(255, 193, 7, 0.1));
+}
+
+.fa-bookmark:hover,
+.fa-brands:hover {
+  color: #fe750c;
 }

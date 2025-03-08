@@ -15,6 +15,8 @@
       {% endfor %}
     {% endif %}
   </div>
+
+  <!-- User's posts -->
   <div class="row">
     <div class="col-md-8">
       <h3>{{ profile.user.username }}</h3>
@@ -39,6 +41,8 @@
           <p class="text-center text-muted">No posts yet.</p>
         {% endfor %}
     </div>
+
+     <!-- User's profile -->
     <div class="col-md-4">
       <div class="card user-profile py-4 px-2">
         <div class="card-body">
@@ -58,7 +62,7 @@
               
               {% if user != profile.user %}
                 <button id="follow-btn"
-                        class="btn {% if request.user.profile in profile.followed_by.all %}btn-warning{% else %}btn-outline-warning{% endif %} follow-button"
+                        class="btn {% if request.user.profile in profile.followed_by.all %}btn-outline-warning{% else %}btn-warning{% endif %} follow-button"
                         data-id="{{ profile.id }}"
                         data-action="{% if request.user.profile in profile.followed_by.all %}unfollow{% else %}follow{% endif %}" class="follow button">
                   {% if request.user.profile in profile.followed_by.all %}
@@ -68,7 +72,6 @@
                   {% endif %}
                 </button>
               {% endif %}
-      
 
               <h5 class="card-title pt-5 pb-3">Following</h5>   
               {% for following in profile.follows.all %}
@@ -169,11 +172,11 @@
             followButton.innerHTML = action;
 
             if (action == 'follow') {
-              followButton.classList.remove('btn-warning');
-              followButton.classList.add('btn-outline-warning');
-            } else {
               followButton.classList.remove('btn-outline-warning');
               followButton.classList.add('btn-warning');
+            } else {
+              followButton.classList.remove('btn-warning');
+              followButton.classList.add('btn-outline-warning');
             }
 
             var followerCount = document.querySelector('p.count .total');

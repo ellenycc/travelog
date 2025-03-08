@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchVector
 from django.db.models import Count
 from django.http import JsonResponse
 from django.urls import reverse, reverse_lazy
@@ -13,8 +14,8 @@ from django.views.generic import (
     DeleteView
 )
 from taggit.models import Tag
-from .models import Post, Comment
-from .forms import CommentForm
+from .models import Post
+from .forms import CommentForm, SearchForm
 
 
 def home(request):
@@ -219,5 +220,29 @@ def tag(request, tag_slug=None):
         {
             'post_list': post_list,
             'tag': tag
+        }
+    )
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = (Post.published.annotate(search=SearchVector('title', 'content'),
+                                               )
+                       .filter(search=query)
+                       )
+    return render(
+        request,
+        'blog/search.html',
+        {
+            'form': form,
+            'query': query,
+            'results': results
         }
     )

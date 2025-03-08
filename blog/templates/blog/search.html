@@ -9,25 +9,32 @@
   <div class="row">
     <!-- Post section -->
     <div class="col-md-8">
-      <h3 class="pt-4">{{tag.slug}}</h3>
-      {% for post in post_list %}
-        <a href="{{ post.get_absolute_url }}" class="text-decoration-none w-100 w-md-75 w-lg-50">
-          <div class="card card-blog mb-3 border-0 mx-auto">
-            <div class="row g-0 align-items-center">
-              <div class="col-3 col-md-2">
-                <img src="{% thumbnail post.post_image 180x180 crop%}" class="blog-thumbnail img-fluid rounded" alt="{{post.title}}">
-              </div>
-              <div class="col-9 col-md-10">
-                <div class="card-body">
-                  <p class="card-text"><small class="text-body-secondary">{{ post.publish|date:'d M Y' }}</small></p>
-                  <h3 class="card-title">{{ post.title }}</h3>
-                  <p class="card-text d-none d-md-block">{{ post.content|truncatewords:20 }}</p>
+      {% if query %}
+        <h3 class="pt-4">Posts containing "{{ query }}</h3>
+        <p>
+          {% with results.count as total_results %}
+            Found {{ total_results }} result{{ total_results|pluralize }} 
+          {% endwith %}
+        </p>
+        {% for post in post_list %}
+          <a href="{{ post.get_absolute_url }}" class="text-decoration-none w-100 w-md-75 w-lg-50">
+            <div class="card card-blog mb-3 border-0 mx-auto">
+              <div class="row g-0 align-items-center">
+                <div class="col-3 col-md-2">
+                  <img src="{% thumbnail post.post_image 180x180 crop%}" class="blog-thumbnail img-fluid rounded" alt="{{post.title}}">
+                </div>
+                <div class="col-9 col-md-10">
+                  <div class="card-body">
+                    <p class="card-text"><small class="text-body-secondary">{{ post.publish|date:'d M Y' }}</small></p>
+                    <h3 class="card-title">{{ post.title }}</h3>
+                    <p class="card-text d-none d-md-block">{{ post.content|truncatewords:20 }}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
-      {% endfor %}
+          </a>
+        {% endfor %}
+      {% endif %}
     </div>
 
     <!-- side bar -->
