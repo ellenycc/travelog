@@ -16,6 +16,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from urllib.parse import urlparse
 
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv('DEBUG', 'False') == 'True'
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['django-blog-3a3v3.ondigitalocean.app',
                  'localhost', '127.0.0.1']
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'taggit',
     'django_social_share',
+    'storages',
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
@@ -94,18 +97,6 @@ WSGI_APPLICATION = 'django_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'db',
-#         'USER': db_info.username,
-#         'PASSWORD': db_info.password,
-#         'HOST': db_info.hostname,
-#         'PORT': db_info.port,
-# 'OPTIONS': {
-#     'sslmode': 'require',
-# },
-# }
 
 DEVELOPMENT_MODE = os.getenv('DEVELOPMENT_MODE', 'False') == 'True'
 
@@ -174,11 +165,53 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# DigitalOcean Spaces configuration
+AWS_ACCESS_KEY_ID = os.environ.get('SPACES_KEY')
+AWS_S3_REGION_NAME = 'lon1'
+AWS_SECRET_ACCESS_KEY = os.environ.get('SPACES_SECRET')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('SPACES_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.environ.get(
+    'SPACES_ENDPOINT', 'https://djangoblog.lon1.digitaloceanspaces.com')
+
+# Make files publicly accessible
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
+# New settings using the STORAGES dict configuration
+if not DEBUG:  # Only use Spaces in production
+    # Configure storage backends using the new STORAGES setting
+    STORAGES = {
+        "default": {
+            "BACKEND": "django_site.storage.MediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django_site.storage.StaticStorage",
+        },
+    }
+
+    # URLs for static and media files (now pointing to your Space)
+    STATIC_URL = f'https://{os.environ.get("SPACES_BUCKET_NAME")}.{os.environ.get("SPACES_REGION", "lon1")}.digitaloceanspaces.com/static/'
+    MEDIA_URL = f'https://{os.environ.get("SPACES_BUCKET_NAME")}.{os.environ.get("SPACES_REGION", "lon1")}.digitaloceanspaces.com/media/'
+else:
+    # Local development settings
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
+
+    # For local, use the default file system storage
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        },
+    }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

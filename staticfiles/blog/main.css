@@ -46,9 +46,6 @@ body p.author {
   padding-top: 14rem;
   padding-bottom: 6rem;
   margin-bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
 }
 
