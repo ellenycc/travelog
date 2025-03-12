@@ -43,7 +43,7 @@ body p.author {
 }
 
 .banner {
-  background-image: url('/static/blog/image/background.jpg');
+  background-image: url('https://djangoblog.lon1.digitaloceanspaces.com/djangoblog/static/blog/image/background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
