@@ -1,11 +1,24 @@
-# travelog
+# Travelog
 
-Travelog is a social travel website that allows users to share their travel tips, hiddem gems in their favourite cities or recommendations. Key features include:
-- Users can create and update their profile
-- Users can create and update blog posts, share posts via social media
-- Users can save posts to read later
-- Users can view the profiles of other travellers and follow them
-- Users can view the latest or most commented posts
+Travelog is a social travel platform for people to share their travelling experiences, document their journeys, and explore posts from other users. It is built with Django and PostgreSQL, and deployed on DigitalOcean App Platform.
+
+### Key features
+
+- User authentication (registration, login, logout)
+- Create, edit, and delete travel posts
+- Upload images with posts
+- Follow other users
+- View posts from other users
+- Add posts to reading list
+- Share posts on social media
+- Comment on blog posts
+
+### Tech Stack
+
+- Backend: Django, PostgreSQL
+- Frontend: Bootstrap, HTML, CSS, JavaScript
+- Deployment: DigitalOcean App Platform, Docker
+
 
 ### Visit The Website
 [Travelog](https://django-blog-3a3v3.ondigitalocean.app/)
