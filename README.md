@@ -1,8 +1,31 @@
 # Travelog
 
+### Table of Contents
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Key Features](#key-features)
+- [Key Learning Takeaways](#key-learning-takeaways)
+- [Future Improvements](#future-improvements)
+- [Links](#links)
+
+### Overview
+
 Travelog is a social travel platform where users can share their travel experiences, document journeys, and discover posts from other travelers.
 
-Built with Django and PostgreSQL, and deployed on DigitalOcean App Platform, this full-stack web app allows users to write blog-style travel posts, interact with others, and explore travel stories from around the world.
+Built with Django and PostgreSQL, and deployed on DigitalOcean App Platform, this full-stack web app allows users to write blog-style travel posts, interact with others, and explore travel stories from around the world. Working on Travelog gave me hands-on experience in building a full-stack Django application from scratch, deploying it in a production environment, and solving real-world development challenges.
+
+
+### Tech Stack
+
+| Technology    | Description                           |
+|---------------|---------------------------------------|
+| Django        | Backend framework for building web apps |
+| PostgreSQL    | Relational database management system  |
+| Bootstrap     | Frontend framework for responsive design |
+| HTML, CSS, JS | Frontend basics for styling and interactivity |
+| Docker        | Containerization for deployment      |
+| DigitalOcean  | Hosting platform for production deployment |
+
 
 ### Key features
 
@@ -15,19 +38,9 @@ Built with Django and PostgreSQL, and deployed on DigitalOcean App Platform, thi
 - Share posts on social media
 - Comment on blog posts
 
-### Tech Stack
 
-- Backend: Django, PostgreSQL
-- Frontend: Bootstrap, HTML, CSS, JavaScript
-- Deployment: DigitalOcean App Platform, Docker
-
-
-### Visit The Website
-[Travelog](https://django-blog-3a3v3.ondigitalocean.app/)
-
-###  Key Learning Takeaways from Building Travelog
-Working on Travelog gave me hands-on experience in building a full-stack Django application from scratch, deploying it in a production environment, and solving real-world development challenges. Here are some of the key things I learned while building this project:
-
+###  Key Learning Takeaways
+Here are some of the key things I learned while building this project:
 
 🛡️ User Authentication
 - Implemented a complete user authentication system using Django’s built-in authentication framework.
@@ -44,11 +57,12 @@ Working on Travelog gave me hands-on experience in building a full-stack Django 
 - Extended Django’s generic class-based views (CBVs) for greater control over logic and rendering.
 - Customised `PostListView` by modifying `get_context_data` to pass tag data to templates.
 Implementation:
-```
+```python
 def get_context_data(self, **kwargs):
 	context = super().get_context_data(**kwargs)
 	context['tags'] = Tag.objects.all()
 	return context
+
 ```
   
 🗃️ Database Management with PostgreSQL
@@ -71,6 +85,12 @@ def get_context_data(self, **kwargs):
 - Learned to debug issues using Django error messages, logs, and print statements.
 - Solved real-world problems related to deployment, database permissions, and media file handling.
 
+
 ### Future Improvements
 - Add search functionality for posts
 - Improve accessibility and SEO
+
+
+### Links
+- [GitHub Repository](https://github.com/ellenycc/travelog)
+- [Live site](https://django-blog-3a3v3.ondigitalocean.app/)
