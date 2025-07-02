@@ -3,7 +3,8 @@
 {% block title %}Delete Post{% endblock  %}
 
 {% block content %}
-  <div class="content-section">
+<div class="container py-5">
+  <div class="content-section p-4">
     <form method="post">  
       {% csrf_token %}
       <fieldset class="form-group">
@@ -13,8 +14,8 @@
       <div class="form-group">
         <button class="btn btn-outline-danger mb-3" type="submit">Yes, Delete</button>
         <a class="btn btn-outline-secondary mb-3" href="{{ post.get_absolute_url }}">Cancel</a>
-
       </div>
     </form>
   </div>
+</div>
 {% endblock  %}

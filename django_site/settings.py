@@ -14,7 +14,6 @@ from urllib.parse import urlparse
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from urllib.parse import urlparse
 
 load_dotenv()
 
@@ -164,7 +163,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-
 # DigitalOcean Spaces configuration
 AWS_ACCESS_KEY_ID = os.environ.get('SPACES_KEY')
 AWS_S3_REGION_NAME = 'lon1'
@@ -173,18 +171,17 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('SPACES_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = os.environ.get(
     'SPACES_ENDPOINT', 'https://djangoblog.lon1.digitaloceanspaces.com')
 
-# Make files publicly accessible
+# Public access & caching
 AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+    'CacheControl': 'max-age=86400, public',
 }
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# Base URL for DigitalOcean Spaces
+SPACES_BASE_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.digitaloceanspaces.com/'
 
-# New settings using the STORAGES dict configuration
 if not DEBUG:  # Only use Spaces in production
-    # Configure storage backends using the new STORAGES setting
+    # STORAGES dict
     STORAGES = {
         "default": {
             "BACKEND": "django_site.storage.MediaStorage",
@@ -195,14 +192,15 @@ if not DEBUG:  # Only use Spaces in production
     }
 
     # URLs for static and media files (now pointing to your Space)
-    STATIC_URL = f'https://{os.environ.get("SPACES_BUCKET_NAME")}.{os.environ.get("SPACES_REGION", "lon1")}.digitaloceanspaces.com/static/'
-    MEDIA_URL = f'https://{os.environ.get("SPACES_BUCKET_NAME")}.{os.environ.get("SPACES_REGION", "lon1")}.digitaloceanspaces.com/media/'
+    # URLs for static and media files (served from Spaces)
+    STATIC_URL = f"{SPACES_BASE_URL}static/"
+    MEDIA_URL = f"{SPACES_BASE_URL}media/"
 else:
     # Local development settings
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
 
-    # For local, use the default file system storage
+    # Use local file storage for development
     STORAGES = {
         "default": {
             "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -211,6 +209,10 @@ else:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
+
+    # Define STATIC_ROOT and MEDIA_ROOT only for development
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
