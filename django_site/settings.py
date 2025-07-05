@@ -111,7 +111,7 @@ if DATABASE_URL:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'db',
+            'NAME': db_info.path[1:],  # Remove leading slash from path
             'USER': db_info.username,
             'PASSWORD': db_info.password,
             'HOST': db_info.hostname,
