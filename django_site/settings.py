@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['django-blog-3a3v3.ondigitalocean.app',
-                 'localhost', '127.0.0.1']
+                 'localhost', '127.0.0.1', '167.172.61.162']
 
 
 # Application definition
