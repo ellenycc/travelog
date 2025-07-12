@@ -21,7 +21,7 @@
   {% endif %}
   
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column min-vh-100">
   <header class="site-header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container-fluid px-4 d-flex justify-content-between">
@@ -61,7 +61,7 @@
     </nav>
   </header>
 
-  <main role="main" class="flex-shrink-0">
+  <main role="main" class="flex-fill">
     {% block content %}{% endblock %}  
   </main>
   <footer class="footer bg-body-tertiary mt-auto py-5">

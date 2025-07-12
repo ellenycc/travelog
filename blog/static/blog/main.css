@@ -7,7 +7,6 @@ ul {
   margin: 0;
 }
 
-
 body a {
   text-decoration: none;
 }
@@ -23,7 +22,7 @@ body p.author {
 }
 
 .navbar-brand {
-  font-family: 'Lobster', serif;
+  font-family: "Lobster", serif;
   font-weight: 700;
   font-size: 36px;
   font-style: normal;
@@ -43,7 +42,7 @@ body p.author {
 }
 
 .banner {
-  background-image: url('https://djangoblog.lon1.digitaloceanspaces.com/djangoblog/static/blog/image/background.jpg');
+  background-image: url("https://djangoblog.lon1.digitaloceanspaces.com/djangoblog/static/blog/image/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -62,11 +61,11 @@ body p.author {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 1; 
+  z-index: 1;
 }
 
 .banner-content {
-  position: relative; 
+  position: relative;
   color: white;
   z-index: 2;
   text-align: center;
@@ -99,7 +98,6 @@ body p.author {
   border-radius: 8px;
 }
 
-
 .card-destinations {
   overflow: hidden;
   object-fit: cover;
@@ -107,7 +105,7 @@ body p.author {
 }
 
 .card-destinations img {
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .card-destinations:hover img {
@@ -122,14 +120,14 @@ body p.author {
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 10px 20px; 
+  padding: 10px 20px;
 }
 
 .card-img-top {
   height: 220px;
   width: 100%;
-  border-top-left-radius: calc(.5rem - 1px);
-  border-top-right-radius: calc(.5rem - 1px);
+  border-top-left-radius: calc(0.5rem - 1px);
+  border-top-right-radius: calc(0.5rem - 1px);
   object-fit: cover;
 }
 
@@ -137,8 +135,8 @@ body p.author {
   overflow: hidden;
   object-fit: cover;
   display: block;
-  border-top-left-radius: calc(.5rem - 1px);
-  border-top-right-radius: calc(.5rem - 1px);
+  border-top-left-radius: calc(0.5rem - 1px);
+  border-top-right-radius: calc(0.5rem - 1px);
 }
 
 .card-latest-blog {
@@ -146,7 +144,7 @@ body p.author {
 }
 
 .card-latest-blog img {
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .card-latest-blog:hover img {
@@ -154,7 +152,7 @@ body p.author {
 }
 
 .user-profile-photo {
-  transition: transform .2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .user-profile-photo:hover {
@@ -251,7 +249,7 @@ button#userDropdown:focus {
 }
 
 .blog-link:hover,
-.profile-link:hover  {
+.profile-link:hover {
   color: #fe750c;
 }
 
@@ -260,7 +258,9 @@ button#userDropdown:focus {
 }
 
 .card-blog:hover {
-  background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(255, 193, 7, 0.1));
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px) scale(1.01);
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
 .fa-bookmark:hover,
