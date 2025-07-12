@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% load social_share %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock title %}
 
 {% block content %}
   {% if posts %}
@@ -36,4 +36,4 @@
           </article>
       {% endfor %}
   {% endif %}
-{% endblock  %}
+{% endblock content %}

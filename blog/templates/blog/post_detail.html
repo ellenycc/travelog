@@ -3,7 +3,7 @@
 {% load social_share %}
 {% load blog_tags %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ post.title }}{% endblock title %}
 
 {% block content %}
 <div class="container mx-auto">
@@ -124,7 +124,7 @@
     </div>
   </div>
 </div>   
-{% endblock  %}
+{% endblock content %}
 
 {% block domready %}
     const url = '{% url "blog:like" %}'
@@ -165,4 +165,4 @@
                 }
               })
             });
-{% endblock  %}
+{% endblock domready %}

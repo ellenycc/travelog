@@ -8,15 +8,16 @@
   <div class="banner-content">
     <h1 class="banner-heading fw-bold">Looking for Your Next Adventure?</h1>
     <p class="banner-subheading">Join a community of travelers and share your journey.</p>
-    <a href="#cta" class="btn btn-outline-light btn-md">Get Started</a>
+    <a href="#top-destinations" class="btn btn-outline-light btn-lg"></i>Get Started</a>
   </div>
 </section>
 
 
 <!-- top destinations -->
-<div class="album py-5">
+<div class="album py-5" id="top-destinations">
   <div class="container text-center pb-5">
     <h2 class="album-heading">Top destinations</h2>
+    <p class="text-muted">Discover the most popular places among our travelers.</p>
   </div>
   <div class="container pb-5">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
@@ -27,19 +28,19 @@
               <div class="card card-destinations h-100 border-0 shadow-sm">
                 {% if tag.slug == 'paris' %}
                   <img class="card-destinations w-100" src="{% static 'blog/image/paris.jpg' %}" 
-                  alt="Paris-thumbnail" loading="lazy">
+                  alt="Paris-thumbnail" width="400" height="250" loading="lazy">
                   <div class="overlay-text">Paris</div>
                 {% elif tag.slug == 'hong-kong' %}
                   <img class="card-destinations w-100" src="{% static 'blog/image/hong-kong.jpg' %}" 
-                  alt="Hong Kong-thumbnail" loading="lazy">
+                  alt="Hong Kong-thumbnail" width="400" height="250"loading="lazy">
                   <div class="overlay-text">Hong Kong</div>
                 {% elif tag.slug == 'london' %}
                   <img class="card-destinations w-100" src="{% static 'blog/image/london.jpg' %}" 
-                  alt="London-thumbnail" loading="lazy">
+                  alt="London-thumbnail" width="400" height="250"loading="lazy">
                   <div class="overlay-text">London</div>
                 {% elif tag.slug == 'porto' %}
                   <img class="card-destinations w-100" src="{% static 'blog/image/porto.jpg' %}" 
-                  alt="Porto-thumbnail" loading="lazy">
+                  alt="Porto-thumbnail" width="400" height="250"loading="lazy">
                   <div class="overlay-text">Porto</div>
                 {% endif %}
               </div>
@@ -54,6 +55,7 @@
 <div class="album py-5 bg-body-tertiary">
   <div class="container text-center pb-5">
     <h2 class="album-heading">Latest Posts</h2>
+    <p class="text-muted">See what our community is sharing right now.</p>
   </div>
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 g-4">
@@ -61,7 +63,7 @@
         <div class="col">
           <div class="card card-latest-blog h-100 shadow-sm border-0">
             <div class="card-img-top-container">
-              <img class="card-img-top" src="{{ post.post_image.url }}" alt="blog-thumbnail" loading="lazy">
+              <img class="card-img-top" src="{{ post.post_image.url }}" alt="blog-thumbnail" width="400" height="250" loading="lazy">
             </div>
             <div class="card-body d-flex flex-column">
               <h4><a class="card-title article-title stretched-link text-dark" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
@@ -89,8 +91,8 @@
 <!-- People -->
 <div class="album py-5">
   <div class="container text-center pb-5">
-    <p class="fs-3 fw-bold">Get to know our travellers from around the world </p>
     <h2 class="album-heading">Travelogers</h2>
+    <p class="fs-3 fw-bold">Get to know our travellers from around the world </p>
   </div>
   <div id="profileCarousel" class="carousel carousel-dark slide">
     <div class="carousel-inner">
@@ -118,4 +120,4 @@
   </div>
 </div>
 
-{% endblock  %}
+{% endblock content %}

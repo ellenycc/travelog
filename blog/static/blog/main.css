@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #fff;
   padding-top: 100px;
@@ -111,6 +115,7 @@ body p.author {
 .card-destinations:hover img {
   transform: scale(1.05);
 }
+
 
 .overlay-text {
   position: absolute;
