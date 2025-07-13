@@ -30,7 +30,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['blog-ellen.site', 'localhost', '127.0.0.1', '167.172.61.162']
+ALLOWED_HOSTS = [
+    'travelogforall.com',
+    'www.travelogforall.com',
+    'localhost',
+    '127.0.0.1',
+    '167.172.61.162'
+    ]
 
 
 # Application definition
