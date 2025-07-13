@@ -54,7 +54,7 @@ class Profile(models.Model):
         verbose_name_plural = "Profiles"
 
 @receiver(post_save, sender=CustomUser)
-def create_or_update_profile(_, instance, _, **kwargs):
+def create_or_update_profile(sender, instance, created, **kwargs):
     """Create or update a user profile when a CustomUser is saved.
 
     Args:
