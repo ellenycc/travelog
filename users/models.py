@@ -3,11 +3,14 @@
 Defines CustomUser and Profile models for authentication and user data.
 """
 
+import logging
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+
+logger = logging.getLogger(__name__)
 
 class CustomUser(AbstractUser):
     """Custom user model extending Django's AbstractUser.
@@ -63,4 +66,7 @@ def create_or_update_profile(sender, instance, created, **kwargs):
       created: Whether this is a new instance.
       **kwargs: Additional keyword arguments.
     """
-    Profile.objects.get_or_create(user=instance)  # type: ignore[attr-defined]
+    try:
+        Profile.objects.get_or_create(user=instance)  # type: ignore[attr-defined]
+    except Exception as e:
+        logger.error("Error creating or updating profile for user %s (ID: %s): %s", instance, instance.id, e)

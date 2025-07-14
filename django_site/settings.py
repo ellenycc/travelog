@@ -222,6 +222,49 @@ else:
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
+ADMINS = [('ellen', 'ellenycc13@gmail.com')]
+SERVER_EMAIL = 'server@travelogforall.com'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "django_error.log"),
+            "formatter": "verbose",
+        },
+        "mail_admins": {
+            "level": "CRITICAL",
+            "class": "django.utils.log.AdminEmailHandler",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "CRITICAL",
+            "propagate": False,
+        },
+    },
+}
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
@@ -240,3 +283,4 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
