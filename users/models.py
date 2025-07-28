@@ -66,7 +66,8 @@ def create_or_update_profile(sender, instance, created, **kwargs):
       created: Whether this is a new instance.
       **kwargs: Additional keyword arguments.
     """
-    try:
-        Profile.objects.get_or_create(user=instance)  # type: ignore[attr-defined]
-    except Exception as e:
-        logger.error("Error creating or updating profile for user %s (ID: %s): %s", instance, instance.id, e)
+    if created:
+      try:
+          Profile.objects.get_or_create(user=instance)  # type: ignore[attr-defined]
+      except Exception as e:
+          logger.error("Error creating or updating profile for user %s (ID: %s): %s", instance, instance.id, e)

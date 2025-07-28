@@ -89,14 +89,18 @@ class Post(models.Model):
         return reverse('blog:post-detail', kwargs={"slug": self.slug})
 
     def save(self, *args, **kwargs):
-        """Save the post, generating a slug if needed.
-
-        Args:
-          *args: Variable length argument list.
-          **kwargs: Arbitrary keyword arguments.
+        """Save the post, generate a slug if slug is empty.
+        If the slug already exists, create a new version with counter.
         """
         if not self.slug:
-            self.slug = slugify(self.title)
+            base_slug = slugify(self.title)
+            slug = base_slug
+            counter = 1
+
+            while Post.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
         return super().save(*args, **kwargs)
 
 class Comment(models.Model):
