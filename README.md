@@ -15,6 +15,9 @@ Travelog is a social travel platform where users can share their travel experien
 Built with Django and PostgreSQL, and deployed on DigitalOcean App Platform, this full-stack web app allows users to write blog-style travel posts, interact with others, and explore travel stories from around the world. Working on Travelog gave me hands-on experience in building a full-stack Django application from scratch, deploying it in a production environment, and solving real-world development challenges.
 
 
+### Screenshot
+
+
 ### Tech Stack
 
 | Technology    | Description                           |
@@ -23,7 +26,6 @@ Built with Django and PostgreSQL, and deployed on DigitalOcean App Platform, thi
 | PostgreSQL    | Relational database management system  |
 | Bootstrap     | Frontend framework for responsive design |
 | HTML, CSS, JS | Frontend basics for styling and interactivity |
-| Docker        | Containerization for deployment      |
 | DigitalOcean  | Hosting platform for production deployment |
 
 
@@ -93,4 +95,4 @@ def get_context_data(self, **kwargs):
 
 ### Links
 - [GitHub Repository](https://github.com/ellenycc/travelog)
-- [Live site](https://django-blog-3a3v3.ondigitalocean.app/)
+- [Live site](https://www.travelogforall.com/)
