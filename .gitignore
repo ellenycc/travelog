@@ -5,3 +5,5 @@
 .env
 
 db.sqlite3*.log
+
+django_error.log
