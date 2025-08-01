@@ -26,36 +26,40 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container-fluid px-4 d-flex justify-content-between">
         <a class="navbar-brand" href="{% url 'home' %}">Travelog</a>
-        {% comment %} <form class="d-flex" method="GET" action="{% url 'blog:post_search' %}">
-          {{ form.as_p }}
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> {% endcomment %}
-        <div class="ms-auto d-flex align-items-center">
-          {% if user.is_authenticated %}
-            <div class="dropdown">
-              <a class="dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{% thumbnail request.user.profile.photo 100x100 crop %}" 
-                      class="rounded-circle avatar"
-                      alt="avatar">
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="{% url 'blog:post-create' %}">Create Post</a></li>
-                <li><a class="dropdown-item" href="{% url 'profile' user.username %}">Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'blog:liked-post' %}">Reading List</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
-                  <form method="post" action="{% url "logout" %}" class="d-inline">
-                    {% csrf_token %}
-                    <button class="dropdown-item" type="submit"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</button>
-                  </form>
-                </li>
-              </ul>
-            </div>
-          {% else %}
-            <a class="btn btn-outline-success me-2" href="{% url 'login' %}">Login</a>
-            <a class="btn btn-outline-success" href="{% url 'register' %}">Register</a>
-          {% endif %}
+
+        <!--Hamburger button for mobile-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--Collapsible navbar content-->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="navbar-nav ms-auto">
+            {% if user.is_authenticated %}
+              <div class="dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{% thumbnail request.user.profile.photo 100x100 crop %}" 
+                        class="rounded-circle avatar"
+                        alt="avatar">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <li><a class="dropdown-item" href="{% url 'blog:post-create' %}">Create Post</a></li>
+                  <li><a class="dropdown-item" href="{% url 'profile' user.username %}">Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'blog:liked-post' %}">Reading List</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <form method="post" action="{% url "logout" %}" class="d-inline">
+                      {% csrf_token %}
+                      <button class="dropdown-item" type="submit"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+            {% else %}
+              <a class="nav-link btn btn-outline-success me-2 mb-2 mb-lg-0" href="{% url 'login' %}">Login</a>
+              <a class="nav-link btn btn-outline-success" href="{% url 'register' %}">Register</a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </nav>
