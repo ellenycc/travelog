@@ -78,7 +78,7 @@ Image Upload & Media Handling
 
 
 ### Future Improvements
-It is a project that allows me consolidate what I've been learning about Django, Python, on how to configure for production and deployment. I plan to keep improving it by enhancing readability of codes and modularity of the structure, and potentially adding the feature of AI-powered itinary planner. 
+This project has helped me consolidate my learning in Django, Python, and production deployment. Moving forward, I plan to improve the codebase readability and enhance the modularity of the project structure. I’m also exploring the possibility of integrating an AI-powered itinerary planner to make the platform more interactive and personalised for users.
 
 
 ### Links
