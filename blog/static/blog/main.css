@@ -273,3 +273,10 @@ button#userDropdown:focus {
   color: #fe750c;
 }
 
+.banner .btn {
+  color: #fff !important;
+}
+
+.banner .btn:hover {
+  color: #010101 !important;
+}
