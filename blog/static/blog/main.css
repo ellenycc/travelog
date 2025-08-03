@@ -129,7 +129,7 @@ body p.author {
 }
 
 .card-img-top {
-  height: 220px;
+  height: auto;
   width: 100%;
   border-top-left-radius: calc(0.5rem - 1px);
   border-top-right-radius: calc(0.5rem - 1px);
@@ -272,3 +272,4 @@ button#userDropdown:focus {
 .fa-brands:hover {
   color: #fe750c;
 }
+
